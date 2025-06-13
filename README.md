@@ -17,8 +17,7 @@ Example output:
 Packet Sniffer Tool (educational use only)
 Filter by protocol? (tcp/udp/all): tcp
 Number of packets to capture (e.g., 10): 5
-
-📡 Capturing 5 packet(s)... (Press shift+F5 to stop early)
+Capturing 5 packet(s)... (Press shift+F5 to stop early)
 
 Packet:
    From: 192.168.1.5
@@ -26,7 +25,7 @@ Packet:
    Protocol: TCP
    Payload (first 50B): b'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n'
    
-⚠️ Disclaimer
+Disclaimer
 This tool is strictly for educational and authorized network analysis.
 Unauthorized packet sniffing may violate privacy laws and network policies.
 Always obtain permission before using on any network.
