@@ -1,0 +1,48 @@
+from scapy.all import sniff, IP, TCP, UDP, Raw
+
+def packet_callback(packet):
+    if IP in packet:
+        ip_layer = packet[IP]
+        proto = "Other"
+
+        if TCP in packet:
+            proto = "TCP"
+        elif UDP in packet:
+            proto = "UDP"
+
+        print(f"\n Packet:")
+        print(f"   From: {ip_layer.src}")
+        print(f"   To:   {ip_layer.dst}")
+        print(f"   Protocol: {proto}")
+
+        if Raw in packet:
+            payload = packet[Raw].load
+            try:
+                print(f"   Payload (first 50B): {payload[:50]}")
+            except:
+                print("   Payload: (unreadable)")
+
+def main():
+    print(" Packet Sniffer Tool (educational use only)")
+
+    # Ask for filter
+    filter_choice = input("Filter by protocol? (tcp/udp/all): ").strip().lower()
+    if filter_choice == "tcp":
+        bpf_filter = "tcp"
+    elif filter_choice == "udp":
+        bpf_filter = "udp"
+    else:
+        bpf_filter = ""
+
+    try:
+        packet_count = int(input("Number of packets to capture (e.g., 10): "))
+    except ValueError:
+        print("Invalid number, defaulting to 10 packets.")
+        packet_count = 10
+
+    print(f"\n📡 Capturing {packet_count} packet(s)... (Press Ctrl+C to stop early)\n")
+
+    sniff(filter=bpf_filter, prn=packet_callback, store=False, count=packet_count)
+
+if __name__ == "__main__":
+    main()
